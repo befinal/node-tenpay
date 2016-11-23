@@ -1,10 +1,6 @@
 # 微信支付 for nodejs
 
-[![NPM Version][npm-image]][npm-url]
-[![NPM Downloads][downloads-image]][downloads-url]
-[![Node.js Version][node-version-image]][node-version-url]
-[![Build status][travis-image]][travis-url]
-[![Test coverage][coveralls-image]][coveralls-url]
+[![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/tenpay)
 
 ## 安装
 	npm install tenpay
