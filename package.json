@@ -11,7 +11,7 @@
     "url": "git://github.com/befinal/node-tenpay.git"
   },
   "engines": {
-    "node": "6.x"
+    "node": ">= 6.x"
   },
   "keywords": [
     "微信支付",
