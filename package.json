@@ -1,0 +1,32 @@
+{
+  "name": "node-tenpay",
+  "version": "1.0.0",
+  "description": "微信支付 for nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/befinal/node-tenpay.git"
+  },
+  "keywords": [
+    "微信支付",
+    "wehcat",
+    "tenpay"
+  ],
+  "author": "Eric",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/befinal/node-tenpay/issues"
+  },
+  "homepage": "https://github.com/befinal/node-tenpay#readme",
+  "dependencies": {
+    "raw-body": "^2.1.7",
+    "urllib": "^2.17.0",
+    "xml2js": "^0.4.17"
+  },
+  "devDependencies": {
+    "co": "^4.6.0"
+  }
+}
