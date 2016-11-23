@@ -1,5 +1,5 @@
 {
-  "name": "node-tenpay",
+  "name": "tenpay",
   "version": "1.0.0",
   "description": "微信支付 for nodejs",
   "main": "index.js",
