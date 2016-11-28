@@ -1,9 +1,31 @@
 # 微信支付 for nodejs
-* 支付消息通知: 支持Express或Koa
-* API调用: 支持使用callback或yield形式(co或Koa中使用)
+
+`支付结果通知` - 支持Express或Koa  
+`微信支付API` - 支持使用callback或yield形式(co或Koa中使用)
 
 [![npm](https://img.shields.io/npm/v/tenpay.svg)](https://www.npmjs.com/package/tenpay)
 [![node](https://img.shields.io/node/v/tenpay.svg)](http://nodejs.org/download/)
+
+## 使用前必读
+
+#### 关于传入值和微信返回值的数据类型
+> 因涉及金额等敏感问题, API和中间件并没有对数据字段做类型转换  
+> `微信返回值中的字段基本上为字符串类型, 请自行转换后再进行数据运算`
+
+> **重点:** `'1' + 0 = 10`
+
+#### 关于错误
+> API和中间件均对所有错误进行了处理, 统一通过error返回, 包括:
+
+> `网络类错误` - 网络中断, 连接超时等  
+> `微信返回值检验错误` - 微信返回值非法(伪造请求等, 可能性非常低)  
+> `业务逻辑错误` - 订单重复, 退款金额大于支付金额等  
+> `其它错误` - 应传参数未传入等
+
+#### 关于返回值
+> 未出错时正常返回为JSON格式数据
+
+> **特殊情况:** downloadBill(下载对帐单) 返回值为字符串文本
 
 ## 安装
 
@@ -23,56 +45,56 @@
 	var api = new tenpay(config);
 
 #### config说明:
-* appid: 公众号ID(必填)
-* mchid: 微信商户号(必填)
-* partnerKey: 微信支付安全密钥(必填, 在微信商户管理界面获取)
-* pfx: 证书文件(选填, 在微信商户管理界面获取)
-	* 当不需要调用必须依赖证书的API时可不填此参数
-	* 若业务流程中使用了依赖证书的API则需要在初始化时传入此参数
-* notify_url: 支付结果通知回调地址(选填, 部分API需要此参数)
-	* 可以在初始化的时候传入
-	* 初始化时传入则设为默认值, 不传则需在调用相关API时传入
-	* 调用相关API时传入新值则使用新值
-	* 调用相关API时, 若调用和初始化时均无此参数则返回错误
-* spbill_create_ip: IP地址(选填, 部分API需要此参数)
-	* 可以在初始化的时候传入
-	* 初始化时传入则设为默认值, 不传则默认值为127.0.0.1
-	* 调用相关API时传入新值则使用新值
+- `appid` - 公众号ID(必填)
+- `mchid` - 微信商户号(必填)
+- `partnerKey` - 微信支付安全密钥(必填, 在微信商户管理界面获取)
+- `pfx` - 证书文件(选填, 在微信商户管理界面获取)
+	- 当不需要调用依赖证书的API时可不填此参数
+	- 若业务流程中使用了依赖证书的API则需要在初始化时传入此参数
+- `notify_url` - 支付结果通知回调地址(选填)
+	- 可以在初始化的时候传入设为默认值, 不传则需在调用相关API时传入
+	- 调用相关API时传入新值则使用新值
+	- 调用相关API时, 若调用和初始化时均无此参数则返回错误
+- `spbill_create_ip` - IP地址(选填)
+	- 可以在初始化的时候传入设为默认值, 不传则默认值为`127.0.0.1`
+	- 调用相关API时传入新值则使用新值
 
-##### 可选参数最佳实践:
-* 如业务流程中用到含证书请求的API, 则必须在初始时传入pfx参数
-* 如回调地址不需要按业务变化, 建议在初始化时传入统一的回调地址
-* 如IP地址不需要按业务变化, 建议在初始化时传入统一的IP地址
+#### 可选参数最佳实践:
+- 如业务流程中用到含证书请求的API, 则必须在初始时传入pfx参数
+- 如回调地址不需要按业务变化, 建议在初始化时传入统一的回调地址
+- 如IP地址不需要按业务变化, 建议在初始化时传入统一的IP地址
 
-## 支付回调中间件:
+## 微信支付结果通知 • 中间件
 
-	// Koa中间件
+	// Koa
 	var middleware = api.middleware();
 	app.use(middleware, function *() {
 		var payInfo = this.wexin;
 	})
 	
-	// Express中间件
+	// Express
 	var middleware = api.middlewareForExpress();
 	app.use(middleware, function (req, res) {
 		var payInfo = req.weixin;
-	}) 
+	})
 
 ## API 使用说明
-* 某些API预设了某些必传字段的默认值, 不传则使用默认值, 可在API示例中查看相关默认值说明
-* 初始化时已传入的参数无需调用时重复传入, 如appid, mchid
-* sign: 签名会在调用API时自动处理, 无需手动处理后传入
-* nonce_str: 随机字符串会在调用API时自动处理, 无需手动处理后传入
 
-##### promise方式调用(使用co或在Koa中使用)
+- 某些API预设了某些必传字段的默认值, 调用时不传参数则使用默认值
+- 初始化时已传入的参数无需调用时重复传入, 如`appid` `mchid`
+- 签名(sign)会在调用API时自动处理, 无需手动传入
+- 随机字符串(nonce_str)会在调用API时自动处理, 无需手动传入
+
+#### promise方式调用(使用co或在Koa中使用)
 
 	var result = yield api.getPayParams(order);
 
-##### callback方式调用
+#### callback方式调用
 
 	api.getPayParams(order, callback);	
 
 ## API 列表
+
 ### getPayParams: 获取微信JSSDK支付参数
 
 	var order = {
@@ -84,7 +106,7 @@
 	api.getPayParams(order, callback);
 
 ##### 相关默认值:
-* trade_type: JSAPI
+- `trade_type` - JSAPI
 	
 ### unifiedOrder: 微信统一下单
 
@@ -96,9 +118,9 @@
 	api.unifiedOrder(order, callback);
 
 ##### 相关默认值:
-* trade_type: JSAPI
-* notify_url: 初始化时填入值, 未填入则无
-* spbill_create_ip: 初始化时填入值, 未填入则为127.0.0.1
+- `trade_type` - JSAPI
+- `notify_url` - 默认为初始化时传入的值或空
+- `spbill_create_ip` - 默认为初始化时传入的值或`127.0.0.1`
 
 ### orderQuery: 查询订单
 
@@ -127,7 +149,7 @@
 	api.refund(order, callback);
 
 ##### 相关默认值:
-* op_user_id: 操作员帐号, 不传则默认为商户号(mchid)
+- `op_user_id` - 默认为商户号(mchid)
 
 ### refundQuery: 查询退款
 
@@ -148,7 +170,7 @@
 	api.downloadBill(order, callback);
 
 ##### 相关默认值:
-* bill_type: 账单类型, 默认为ALL, 可选SUCCESS或REFUND
+- `bill_type` - ALL
 
 ### transfers: 企业付款
 
@@ -162,8 +184,8 @@
 	api.transfers(order, callback);
 
 ##### 相关默认值:
-* check_name: 校验用户姓名选项, 默认OPTION_CHECK
-* spbill_create_ip: 初始化时填入值, 未填入则为127.0.0.1
+- `check_name` - OPTION_CHECK
+- `spbill_create_ip` - 默认为初始化时传入的值或`127.0.0.1`
 
 ### transfersQuery: 查询企业付款
 
