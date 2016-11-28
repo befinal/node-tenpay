@@ -1,4 +1,6 @@
 # 微信支付 for nodejs
+* 支付消息通知: 支持Express或Koa
+* API调用: 支持使用callback或yield形式(co或Koa中使用)
 
 [![npm](https://img.shields.io/npm/v/tenpay.svg)](https://www.npmjs.com/package/tenpay)
 [![node](https://img.shields.io/node/v/tenpay.svg)](http://nodejs.org/download/)
@@ -37,7 +39,7 @@
 
 ## 支付回调中间件:
 
-	// KOA中间件
+	// Koa中间件
 	var middleware = api.middleware();
 	app.use(middleware, function *() {
 		var payInfo = this.wexin;
@@ -55,7 +57,7 @@
 * sign: 签名会在调用API时自动处理, 无需手动处理后传入
 * nonce_str: 随机字符串会在调用API时自动处理, 无需手动处理后传入
 
-##### promise方式调用
+##### promise方式调用(使用co或在Koa中使用)
 
 	var result = yield api.getPayParams(order);
 
