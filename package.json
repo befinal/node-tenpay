@@ -1,6 +1,6 @@
 {
   "name": "tenpay",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "微信支付 for nodejs",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,7 @@
   },
   "keywords": [
     "微信支付",
+    "微信红包",
     "wehcat",
     "tenpay"
   ],
