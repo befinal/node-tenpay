@@ -202,7 +202,7 @@
 ### sendRedpack: 发放普通红包
 
 	var order = {
-		mch_billno: '商户内部付款订单号',
+		mch_billno: '商户内部付款订单号(只需要传入10位当日唯一数字)',
 		send_name: '商户名称',
 		re_openid: '用户openid',
 		total_amount: <付款金额(分)>,
@@ -213,6 +213,7 @@
 	api.sendRedpack(order, callback);
 
 ##### 相关默认值和其它说明:
+- `mch_billno` - 自动处理了订单号逻辑,使用时只需传入10位唯一数字即可, 规则请参考官方文档
 - `total_num` - 1
 - `client_ip` - 默认为初始化时的spbill_create_ip参数值或`127.0.0.1`
 - `scene_id` - 空, 当红包金额大于`200元`时必传
@@ -220,7 +221,7 @@
 ### sendGroupRedpack: 发放裂变红包
 
 	var order = {
-		mch_billno: '商户内部付款订单号',
+		mch_billno: '商户内部付款订单号(只需要传入10位当日唯一数字)',
 		send_name: '商户名称',
 		re_openid: '种子用户openid',
 		total_amount: <付款金额(分)>,
@@ -231,6 +232,7 @@
 	api.sendGroupRedpack(order, callback);
 
 ##### 相关默认值和其它说明:
+- `mch_billno` - 自动处理了订单号逻辑,使用时只需传入10位唯一数字即可, 规则请参考官方文档
 - `total_num` - 3
 - `amt_type` - ALL_RAND
 - `scene_id` - 空, 当红包金额大于`200元`时必传(文档中未说明)
