@@ -6,13 +6,18 @@
 [![npm](https://img.shields.io/npm/v/tenpay.svg)](https://www.npmjs.com/package/tenpay)
 [![node](https://img.shields.io/node/v/tenpay.svg)](http://nodejs.org/download/)
 
+- `2016-11-29` 增加微信红包相关API
+- `2016-11-28` 增加微信企业付款相关API
+
 ## 使用前必读
 
 #### 关于传入值和微信返回值的数据类型
 > 因涉及金额等敏感问题, API和中间件并没有对数据字段做类型转换  
 > `微信返回值中的字段基本上为字符串类型, 请自行转换后再进行数据运算`
 
-> **重点:** `'1' + 0 = 10`
+> **重点:** `'1' + 0 = '10'`
+
+> **重点:** `微信支付中传入的金额单位为分, 请注意查阅官方文档`
 
 #### 关于错误
 > API和中间件均对所有错误进行了处理, 统一通过error返回, 包括:
@@ -25,7 +30,7 @@
 #### 关于返回值
 > 未出错时正常返回为JSON格式数据
 
-> **特殊情况:** downloadBill(下载对帐单) 返回值为字符串文本
+> **特殊情况:** `downloadBill(下载对帐单) 返回值为字符串文本`
 
 ## 安装
 
@@ -194,3 +199,48 @@
 	}
 	api.transfersQuery(order, callback);
 
+### sendRedpack: 发放普通红包
+
+	var order = {
+		mch_billno: '商户内部付款订单号',
+		send_name: '商户名称',
+		re_openid: '用户openid',
+		total_amount: <付款金额(分)>,
+		wishing: '红包祝福语',
+		act_name: '活动名称',
+		remark: '备注信息'
+	}
+	api.sendRedpack(order, callback);
+
+##### 相关默认值和其它说明:
+- `total_num` - 1
+- `client_ip` - 默认为初始化时的spbill_create_ip参数值或`127.0.0.1`
+- `scene_id` - 空, 当红包金额大于`200元`时必传
+
+### sendGroupRedpack: 发放裂变红包
+
+	var order = {
+		mch_billno: '商户内部付款订单号',
+		send_name: '商户名称',
+		re_openid: '种子用户openid',
+		total_amount: <付款金额(分)>,
+		wishing: '红包祝福语',
+		act_name: '活动名称',
+		remark: '备注信息'
+	}
+	api.sendGroupRedpack(order, callback);
+
+##### 相关默认值和其它说明:
+- `total_num` - 3
+- `amt_type` - ALL_RAND
+- `scene_id` - 空, 当红包金额大于`200元`时必传(文档中未说明)
+
+### redpackQuery: 查询红包记录
+
+	var order = {
+		mch_billno: '商户内部付款订单号'
+	}
+	api.redpackQuery(order, callback);
+
+##### 相关默认值:
+- `bill_type` - MCHT
