@@ -71,17 +71,14 @@
 
 ## 微信支付结果通知 • 中间件
 
-	// Koa
-	var middleware = api.middleware();
-	app.use(middleware, function *() {
-		var payInfo = this.wexin;
-	})
-	
 	// Express
 	var middleware = api.middlewareForExpress();
-	app.use(middleware, function (req, res) {
+	app.use('/xxx', middleware, function (req, res) {
 		var payInfo = req.weixin;
 	})
+	
+	// Koa
+	var middleware = api.middleware();
 
 ## API 使用说明
 
