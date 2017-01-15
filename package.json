@@ -2,7 +2,7 @@
   "name": "tenpay",
   "version": "1.0.8",
   "description": "微信支付 for nodejs",
-  "main": "index.js",
+  "main": "/index.js",
   "scripts": {
     "mocha": "node node_modules/mocha/bin/_mocha -r mocha-plugin-co",
     "test": "node test/test.js"
