@@ -1,6 +1,6 @@
 # 微信支付 for nodejs
 
-`支付结果通知` - 支持Express或Koa  
+`支付结果通知` - 支持Express或Koa
 `微信支付API` - 支持使用callback或yield形式(co或Koa中使用)
 
 [![npm](https://img.shields.io/npm/v/tenpay.svg)](https://www.npmjs.com/package/tenpay)
@@ -12,8 +12,8 @@
 ## 使用前必读
 
 #### 关于传入值和微信返回值的数据类型
-> 因涉及金额等敏感问题, API和中间件并没有对数据字段做类型转换  
-> `微信返回值中的字段基本上为字符串类型, 请自行转换后再进行数据运算`
+> 因涉及金额等敏感问题, API和中间件并没有对数据字段做类型转换
+> `微信返回值XML做JSON转换之后的字段均为字符串类型, 请自行转换后再进行数据运算`
 
 > **重点:** `'1' + 0 = '10'`
 
@@ -22,9 +22,9 @@
 #### 关于错误
 > API和中间件均对所有错误进行了处理, 统一通过error返回, 包括:
 
-> `网络类错误` - 网络中断, 连接超时等  
-> `微信返回值检验错误` - 微信返回值非法(伪造请求等, 可能性非常低)  
-> `业务逻辑错误` - 订单重复, 退款金额大于支付金额等  
+> `网络类错误` - 网络中断, 连接超时等
+> `微信返回值检验错误` - 微信返回值非法(伪造请求等, 可能性非常低)
+> `业务逻辑错误` - 订单重复, 退款金额大于支付金额等
 > `其它错误` - 应传参数未传入等
 
 #### 关于返回值
@@ -34,7 +34,7 @@
 
 ## 安装
 
-	npm install tenpay 
+	npm install tenpay
 
 ## 初始化
 
@@ -76,7 +76,7 @@
 	app.use('/xxx', middleware, function (req, res) {
 		var payInfo = req.weixin;
 	})
-	
+
 	// Koa
 	var middleware = api.middleware();
 
@@ -93,7 +93,7 @@
 
 #### callback方式调用
 
-	api.getPayParams(order, callback);	
+	api.getPayParams(order, callback);
 
 ## API 列表
 
@@ -109,7 +109,7 @@
 
 ##### 相关默认值:
 - `trade_type` - JSAPI
-	
+
 ### unifiedOrder: 微信统一下单
 
 	var order = {
