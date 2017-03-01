@@ -1,7 +1,7 @@
 # 微信支付 for nodejs
 
-`支付结果通知` - 支持Express或Koa
-`微信支付API` - 支持使用callback或yield形式(co或Koa中使用)
+- `支付结果通知` - 支持Express或Koa
+- `微信支付API` - 支持使用callback或yield形式(co或Koa中使用)
 
 [![npm](https://img.shields.io/npm/v/tenpay.svg)](https://www.npmjs.com/package/tenpay)
 [![node](https://img.shields.io/node/v/tenpay.svg)](http://nodejs.org/download/)
