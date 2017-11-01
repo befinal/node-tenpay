@@ -6,6 +6,7 @@
 [![npm](https://img.shields.io/npm/v/tenpay.svg)](https://www.npmjs.com/package/tenpay)
 [![node](https://img.shields.io/node/v/tenpay.svg)](http://nodejs.org/download/)
 
+- `2017-11-01` 增加扫码支付API
 - `2016-11-29` 增加微信红包相关API
 - `2016-11-28` 增加微信企业付款相关API
 
@@ -109,6 +110,16 @@
 
 ##### 相关默认值:
 - `trade_type` - JSAPI
+
+### micropay: 扫码支付
+
+	var order = {
+		out_trade_no: '商户内部订单号',
+		body: '商品简单描述',
+		total_fee: 100
+		auth_code: '1234567890123'
+	}
+	api.micropay(order, callback);
 
 ### unifiedOrder: 微信统一下单
 
