@@ -27,14 +27,14 @@
   },
   "homepage": "https://github.com/befinal/node-tenpay#readme",
   "dependencies": {
-    "raw-body": "^2.1.7",
-    "urllib": "^2.17.0",
-    "xml2js": "^0.4.17"
+    "raw-body": "^2.3.2",
+    "urllib": "^2.25.1",
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "co": "^4.6.0",
-    "mocha": "^3.2.0",
+    "mocha": "^3.5.3",
     "mocha-plugin-co": "^1.0.0",
-    "should": "^11.1.2"
+    "should": "^11.2.1"
   }
 }
