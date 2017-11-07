@@ -4,7 +4,6 @@
   "description": "微信支付 for nodejs",
   "main": "/index.js",
   "scripts": {
-    "mocha": "node node_modules/mocha/bin/_mocha -r mocha-plugin-co",
     "test": "node test/test.js"
   },
   "repository": {
@@ -32,9 +31,7 @@
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
-    "co": "^4.6.0",
-    "mocha": "^3.5.3",
-    "mocha-plugin-co": "^1.0.0",
-    "should": "^11.2.1"
+    "mocha": "^4.0.1",
+    "should": "^13.1.3"
   }
 }
