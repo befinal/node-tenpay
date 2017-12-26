@@ -126,7 +126,8 @@
 	var order = {
 		out_trade_no: '商户内部订单号',
 		body: '商品简单描述',
-		total_fee: 100
+		total_fee: 100,
+		openid: '用户openid'
 	}
 	api.unifiedOrder(order, callback);
 
