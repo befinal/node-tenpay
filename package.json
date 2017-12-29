@@ -4,14 +4,14 @@
   "description": "微信支付 for nodejs",
   "main": "./lib",
   "scripts": {
-    "test": "node test/test.js"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/befinal/node-tenpay.git"
   },
   "engines": {
-    "node": ">= 6.0"
+    "node": ">= 8.0.0"
   },
   "keywords": [
     "微信支付",
@@ -26,8 +26,7 @@
   },
   "homepage": "https://github.com/befinal/node-tenpay#readme",
   "dependencies": {
-    "raw-body": "^2.3.2",
-    "urllib": "^2.25.1",
+    "urllib": "^2.25.2",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {}

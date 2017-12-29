@@ -225,7 +225,7 @@
 
 ##### 相关默认值和其它说明:
 - `mch_billno` - 商户内部订单号(传入则mch_autono失效)
-- `mch_autono` - 当日10位唯一数字, 用于自动处理商户内部订单号逻辑, 用于取代mch_billno参数
+- `mch_autono` - 当日10位唯一数字, 用于自动处理商户内部订单号逻辑
 - `total_num` - 1
 - `client_ip` - 默认为初始化时的spbill_create_ip参数值或`127.0.0.1`
 - `scene_id` - 空, 当红包金额大于`200元`时必传
@@ -247,7 +247,7 @@
 
 ##### 相关默认值和其它说明:
 - `mch_billno` - 商户内部订单号(传入则mch_autono失效)
-- `mch_autono` - 当日10位唯一数字, 用于自动处理商户内部订单号逻辑, 用于取代mch_billno参数
+- `mch_autono` - 当日10位唯一数字, 用于自动处理商户内部订单号逻辑
 - `total_num` - 3
 - `amt_type` - ALL_RAND
 - `scene_id` - 空, 当红包金额大于`200元`时必传(文档中未说明)
