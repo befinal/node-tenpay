@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/befinal/node-tenpay#readme",
   "dependencies": {
-    "urllib": "^2.25.2",
+    "urllib": "^2.25.3",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {}
