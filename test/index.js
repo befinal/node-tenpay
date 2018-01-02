@@ -1,6 +1,6 @@
 const config = require('../config');
 const tenpay = require('../lib');
-const api = new tenpay(config.wechat);
+const api = new tenpay(config.wechat, 0);
 
 const assert = require('assert');
 describe('订单相关', () => {
@@ -48,10 +48,10 @@ describe('订单相关', () => {
 describe('退款相关', () => {
   it('申请退款: refund', async () => {
     let res = await api.refund({
-     out_trade_no: '1711185583256741',
-     out_refund_no: 'REFUND_1711185583256741',
-     total_fee: 1,
-     refund_fee: 1
+      out_trade_no: '1711185583256741',
+      out_refund_no: 'REFUND_1711185583256741',
+      total_fee: 1,
+      refund_fee: 1
     });
     assert.ok(res.return_code === 'SUCCESS');
     assert.ok(res.result_code === 'SUCCESS');
@@ -75,17 +75,14 @@ describe('退款相关', () => {
 });
 
 describe('企业付款相关', () => {
-  // let id = 'T' + Date.now();
   let id = 'T1514732081550';
 
-  it.skip('申请付款: transfers', async () => {
+  it('申请付款: transfers', async () => {
     let res = await api.transfers({
-     partner_trade_no: id,
-     openid: config.openid,
-     // check_name: 'FORCE_CHECK',
-     // re_user_name: '马晓斌',
-     amount: 1,
-     desc: '企业付款测试'
+      partner_trade_no: id,
+      openid: config.openid,
+      amount: 100,
+      desc: '企业付款测试'
     });
     assert.ok(res.return_code === 'SUCCESS');
     assert.ok(res.result_code === 'SUCCESS');
@@ -101,17 +98,32 @@ describe('企业付款相关', () => {
 });
 
 describe('红包相关', () => {
-  let id = '201712311234567890';
-
-  it('普通红包: sendRedpack', async () => {
+  let mch_billno;
+  it.skip('普通红包: sendRedpack', async () => {
     let res = await api.sendRedpack({
-     mch_billno: id,
-     send_name: '商户名称',
-     re_openid: config.openid,
-     total_amount: 100,
-     wishing: '普通红包祝福语',
-     act_name: '活动名称',
-     remark: '备注信息'
+      mch_autono: Math.random().toString().substr(2, 10),
+      send_name: '商户名称',
+      re_openid: config.openid,
+      total_amount: 100,
+      wishing: '大吉大利，今晚吃鸡',
+      act_name: '测试红包',
+      remark: '无'
+    });
+    assert.ok(res.return_code === 'SUCCESS');
+    assert.ok(res.result_code === 'SUCCESS');
+    mch_billno = res.mch_billno;
+  });
+
+  it.skip('分裂红包: sendGroupRedpack', async () => {
+    let res = await api.sendGroupRedpack({
+      mch_autono: Math.random().toString().substr(2, 10),
+      send_name: '商户名称',
+      re_openid: config.openid,
+      total_amount: 300,
+      total_num: 3,
+      wishing: '大吉大利，今晚吃鸡',
+      act_name: '测试红包',
+      remark: '无'
     });
     assert.ok(res.return_code === 'SUCCESS');
     assert.ok(res.result_code === 'SUCCESS');
@@ -119,7 +131,7 @@ describe('红包相关', () => {
 
   it('红包查询: redpackQuery', async () => {
     let res = await api.redpackQuery({
-      mch_billno: id
+      mch_billno: config.wechat.mchid + '201801028986462339'
     });
     assert.ok(res.return_code === 'SUCCESS');
     assert.ok(res.result_code === 'SUCCESS');
