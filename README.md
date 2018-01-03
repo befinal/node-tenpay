@@ -66,13 +66,22 @@ const api = new tenpay(config);
 ## 中间件 • 微信通知()
 ```
 // middleware参数: 'pay'-支付结果通知<默认>, 'refund'-退款结果通知
+// 需自行添加bodyParser接收post data;
 
 // Express中使用
+app.use(bodyParser.text({type: '*/xml'}));
 app.use('/xxx', api.middlewareForExpress('pay'), (req, res) => {
   let info = req.weixin;
 })
 
 // Koa中使用
+const bodyParser = require('koa-bodyparser');
+app.use(bodyParser({
+  enableTypes: ['json', 'form', 'text'],
+  extendTypes: {
+    text: ['text/xml', 'application/xml']
+  }
+}));
 app.use('/xxx', app.middleware('refund'), async ctx => {
   let info = ctx.request.weixin;
 })
