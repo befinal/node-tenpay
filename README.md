@@ -9,6 +9,7 @@
 ## 使用前必读
 #### 关于传入值和微信返回值的数据类型
 > 因涉及金额等敏感问题, API和中间件并没有对数据字段做类型转换
+>
 > `微信返回值XML做JSON转换之后的字段均为字符串类型, 请自行转换后再进行数据运算`
 
 - **重点:** `'1' + 0 = '10'`
@@ -34,6 +35,7 @@ npm i tenpay
 // 已安装旧版, 重新安装最新版
 npm i tenpay@latest
 ```
+
 ## 初始化
 ```
 const tenpay = require('tenpay');
@@ -47,6 +49,7 @@ const config = {
 }
 const api = new tenpay(config);
 ```
+
 #### config说明:
 - `appid` - 公众号ID(必填)
 - `mchid` - 微信商户号(必填)
@@ -66,7 +69,7 @@ const api = new tenpay(config);
 - 如回调地址不需要按业务变化, 建议在初始化时传入统一的回调地址
 - 如IP地址不需要按业务变化, 建议在初始化时传入统一的IP地址
 
-## 中间件 • 微信通知()
+## 中间件・微信通知(支付结果/退款结果)
 ```
 // middleware参数: 'pay'-支付结果通知<默认>, 'refund'-退款结果通知
 // 需自行添加bodyParser接收post data;
@@ -75,10 +78,13 @@ const api = new tenpay(config);
 app.use(bodyParser.text({type: '*/xml'}));
 app.use('/xxx', api.middlewareForExpress('pay'), (req, res) => {
   let info = req.weixin;
+  // 回复SUCCESS
+  res.reply();
+  // 回复错误
+  res.reply('错误信息');
 })
 
 // Koa中使用
-const bodyParser = require('koa-bodyparser');
 app.use(bodyParser({
   enableTypes: ['json', 'form', 'text'],
   extendTypes: {
@@ -87,6 +93,10 @@ app.use(bodyParser({
 }));
 app.use('/xxx', app.middleware('refund'), async ctx => {
   let info = ctx.request.weixin;
+  // 回复SUCCESS
+  ctx.reply();
+  // 回复错误
+  ctx.reply('错误信息');
 })
 ```
 
@@ -117,6 +127,7 @@ let result = await api.micropay({
   auth_code: '1234567890123'
 });
 ```
+
 ### unifiedOrder: 微信统一下单
 ```
 let result = await api.unifiedOrder({
@@ -138,12 +149,22 @@ let result = await api.orderQuery({
   out_trade_no: '商户内部订单号'
 });
 ```
+
+### reverse: 撤消订单
+```
+let result = await api.reverse({
+  // transaction_id: '微信的订单号',
+  out_trade_no: '商户内部订单号'
+});
+```
+
 ### closeOrder: 关闭订单
 ```
 let result = await api.closeOrder({
   out_trade_no: '商户内部订单号'
 });
 ```
+
 ### refund: 申请退款
 ```
 let result = await api.refund({
@@ -167,6 +188,7 @@ let result = await api.refundQuery({
   refund_id: '微信退款单号'
 });
 ```
+
 ### downloadBill: 下载对帐单
 ```
 // 新增一个format参数: true/false, 不传此参数则默认为false
@@ -204,6 +226,7 @@ let result = await api.transfersQuery({
   partner_trade_no: '商户内部付款订单号'
 });
 ```
+
 ### sendRedpack: 发放普通红包
 ```
 let result = await api.sendRedpack({
