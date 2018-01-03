@@ -30,6 +30,9 @@
 ## 安装
 ```
 npm i tenpay
+
+// 已安装旧版, 重新安装最新版
+npm i tenpay@latest
 ```
 ## 初始化
 ```
