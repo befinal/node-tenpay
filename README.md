@@ -1,7 +1,7 @@
 # 微信支付 for nodejs
-[![NPM][npm-img]][npm-url] [![NODE][node-img]][node-url] [![Downloads][downloads-img]][npm-url] [![GitHub last commit][lastcommit-img]]()
+[![travis][travis]][travis-u] [![npm][npm]][npm-u] [![node][node]][node-u] [![issues][issues]][issues-u] [![commit][commit]][commit-u]
 
-- `支付结果通知` - 支持Express和Koa(仅支持node 8.0.0以上版本)
+- `支付结果通知` - 支持Express和Koa(仅支持node 8.3.0以上版本)
 - `微信支付API` - 支持使用await/async和promise/then方式调用
 
 ## 使用前必读
@@ -287,10 +287,19 @@ api.redpackQuery({
 ##### 相关默认值:
 - `bill_type` - MCHT
 
-[npm-img]: https://img.shields.io/npm/v/tenpay.svg
-[node-img]: https://img.shields.io/node/v/tenpay.svg
-[downloads-img]: https://img.shields.io/npm/dm/tenpay.svg
-[lastcommit-img]: https://img.shields.io/github/last-commit/befinal/node-tenpay.svg
+[travis]: https://img.shields.io/travis/befinal/node-tenpay.svg
+[travis-u]: https://travis-ci.org/befinal/node-tenpay
 
-[npm-url]: https://www.npmjs.com/package/tenpay
-[node-url]: https://nodejs.org/en/download/
+[npm]: https://img.shields.io/npm/v/tenpay.svg
+[npm-u]: https://www.npmjs.com/package/tenpay
+
+[node]: https://img.shields.io/node/v/tenpay.svg
+[node-u]: https://nodejs.org/en/download/
+
+[commit]: https://img.shields.io/github/last-commit/befinal/node-tenpay.svg
+[commit-u]: https://github.com/befinal/node-tenpay/commits/master
+
+[issues]: https://img.shields.io/github/issues/befinal/node-tenpay.svg
+[issues-u]: https://github.com/befinal/node-tenpay/issues
+
+[downloads]: https://img.shields.io/npm/dm/tenpay.svg
