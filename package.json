@@ -17,8 +17,10 @@
   "keywords": [
     "微信支付",
     "微信红包",
+    "企业付款",
     "wechat",
-    "tenpay"
+    "wechat-pay",
+    "wechat-payment"
   ],
   "author": "Eric",
   "license": "MIT",
