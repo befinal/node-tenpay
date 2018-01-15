@@ -11,7 +11,7 @@ const assert = require('assert');
 describe('订单相关', () => {
   let id = Date.now();
 
-  it.skip('支付参数: getPayParams', async () => {
+  it.skip('H5/小程序支付参数(自动下单): getPayParams', async () => {
     let res = await api.getPayParams({
       out_trade_no: id,
       body: '商品简单描述',
@@ -19,6 +19,16 @@ describe('订单相关', () => {
       openid: config.openid
     });
     let keys = ['appId', 'timeStamp', 'nonceStr', 'package', 'signType', 'paySign', 'timestamp'];
+    assert.deepEqual(Object.keys(res), keys);
+  });
+
+  it.skip('APP支付参数(自动下单): getAppParams', async () => {
+    let res = await api.getAppParams({
+      out_trade_no: id,
+      body: '商品简单描述',
+      total_fee: 100
+    });
+    let keys = ['appid', 'partnerid', 'prepayid', 'package', 'noncestr', 'timestamp', 'sign'];
     assert.deepEqual(Object.keys(res), keys);
   });
 
@@ -33,11 +43,19 @@ describe('订单相关', () => {
     assert.ok(res.result_code === 'SUCCESS');
   });
 
-  it.skip('支付参数: getPayParamsByPrepay', async () => {
+  it.skip('H5/小程序支付参数: getPayParamsByPrepay', async () => {
     let res = await api.getPayParamsByPrepay({
       prepay_id: id
     });
     let keys = ['appId', 'timeStamp', 'nonceStr', 'package', 'signType', 'paySign', 'timestamp'];
+    assert.deepEqual(Object.keys(res), keys);
+  });
+
+  it.skip('APP支付参数: getAppParamsByPrepay', async () => {
+    let res = await api.getAppParamsByPrepay({
+      prepay_id: id
+    });
+    let keys = ['appid', 'partnerid', 'prepayid', 'package', 'noncestr', 'timestamp', 'sign'];
     assert.deepEqual(Object.keys(res), keys);
   });
 

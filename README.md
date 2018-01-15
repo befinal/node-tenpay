@@ -2,7 +2,7 @@
 [![travis][travis]][travis-u] [![npm][npm]][npm-u] [![node][node]][node-u] [![issues][issues]][issues-u] [![commit][commit]][commit-u]
 
 - `中间件` - 支付结果通知, 退款结果通知
-- `获取JSSDK/WeixinJSBridge支付参数`
+- `获取支付参数` - 支持JSSDK, WeixinJSBridge, 小程序, APP
 - `微信支付api`
 - `扫码支付api`
 - `微信红包api`
@@ -19,8 +19,8 @@ nodejs >= 8.3.0
 > `微信返回值XML做JSON转换之后的字段均为字符串类型, 请自行转换后再进行数据运算`
 
 #### 重点关注问题
-- `'1' + 0 = '10'` - 字符串与数字运算结果问题
-- `微信支付中传入的金额单位为分` - 金额单位问题
+- 字符串与数字运算结果问题 `'1' + 0 = '10'`
+- 金额单位问题 `微信支付中传入的金额单位为分`
 
 #### 关于错误
 > API和中间件均对所有错误进行了处理, 统一通过error返回, 包括:
@@ -77,7 +77,7 @@ const api = new tenpay(config);
 - 如IP地址不需要按业务变化, 建议在初始化时传入统一的IP地址
 
 ## 中间件・微信通知(支付结果/退款结果)
-- middleware参数: pay<支付结果通知, 默认>, refund<退款结果通知>
+- middleware参数: `pay<支付结果通知, 默认>` `refund<退款结果通知>`
 - 需自行添加bodyParser接收post data
 - reply()会自动封装SUCCESS消息, reply('some error_msg')会自动封装FAIL消息
 
@@ -87,10 +87,13 @@ app.use(bodyParser.text({type: '*/xml'}));
 
 router.post('/xxx', api.middlewareForExpress('pay'), (req, res) => {
   let info = req.weixin;
-  // 回复SUCCESS
+
+  // 业务逻辑...
+
+  // 回复成功消息
   res.reply();
-  // 回复错误
-  res.reply('错误信息');
+  // 回复错误消息
+  // res.reply('错误信息');
 });
 ```
 
@@ -105,10 +108,13 @@ app.use(bodyParser({
 
 router.post('/xxx', api.middleware('refund'), async ctx => {
   let info = ctx.request.weixin;
-  // 回复SUCCESS
+
+  // 业务逻辑...
+
+  // 回复成功消息
   ctx.reply();
-  // 回复错误
-  ctx.reply('错误信息');
+  // 回复错误消息
+  // ctx.reply('错误信息');
 });
 ```
 
@@ -118,7 +124,7 @@ router.post('/xxx', api.middleware('refund'), async ctx => {
 - 签名(sign)会在调用API时自动处理, 无需手动传入
 - 随机字符串(nonce_str)会在调用API时自动处理, 无需手动传入
 
-### getPayParams: 获取微信JSSDK支付参数(自动下单)
+### getPayParams: 获取微信JSSDK支付参数(自动下单, 兼容小程序)
 ```javascript
 let result = await api.getPayParams({
   out_trade_no: '商户内部订单号',
@@ -130,14 +136,32 @@ let result = await api.getPayParams({
 ##### 相关默认值:
 - `trade_type` - JSAPI
 
-### getPayParamsByPrepay: 获取微信JSSDK支付参数(通过预支付会话标识)
+### getPayParamsByPrepay: 获取微信JSSDK支付参数(通过预支付会话标识, 兼容小程序)
 ```javascript
+// 该方法需先调用api.unifiedOrder统一下单, 获取prepay_id;
 let result = await api.getPayParamsByPrepay({
   prepay_id: '预支付会话标识'
 });
 ```
+
+### getAppParams: 获取APP支付参数(自动下单)
+```javascript
+let result = await api.getAppParams({
+  out_trade_no: '商户内部订单号',
+  body: '商品简单描述',
+  total_fee: 100
+});
+```
 ##### 相关默认值:
-- `trade_type` - JSAPI
+- `trade_type` - APP
+
+### getAppParamsByPrepay: 获取APP支付参数(通过预支付会话标识)
+```javascript
+// 该方法需先调用api.unifiedOrder统一下单<注意传入trade_type: 'APP'>, 获取prepay_id;
+let result = await api.getAppParamsByPrepay({
+  prepay_id: '预支付会话标识'
+});
+```
 
 ### micropay: 扫码支付
 ```javascript
