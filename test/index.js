@@ -33,6 +33,14 @@ describe('订单相关', () => {
     assert.ok(res.result_code === 'SUCCESS');
   });
 
+  it.skip('支付参数: getPayParamsByPrepay', async () => {
+    let res = await api.getPayParamsByPrepay({
+      prepay_id: id
+    });
+    let keys = ['appId', 'timeStamp', 'nonceStr', 'package', 'signType', 'paySign', 'timestamp'];
+    assert.deepEqual(Object.keys(res), keys);
+  });
+
   it.skip('订单查询: orderQuery', async () => {
     let res = await api.orderQuery({
       out_trade_no: id

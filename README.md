@@ -44,7 +44,7 @@ const config = {
   pfx: require('fs').readFileSync('证书文件路径'),
   notify_url: '支付回调网址',
   spbill_create_ip: 'IP地址'
-}
+};
 const api = new tenpay(config);
 ```
 
@@ -82,7 +82,7 @@ router.post('/xxx', api.middlewareForExpress('pay'), (req, res) => {
   res.reply();
   // 回复错误
   res.reply('错误信息');
-})
+});
 ```
 
 #### Koa中使用
@@ -100,7 +100,7 @@ router.post('/xxx', api.middleware('refund'), async ctx => {
   ctx.reply();
   // 回复错误
   ctx.reply('错误信息');
-})
+});
 ```
 
 ## API 列表
@@ -109,13 +109,22 @@ router.post('/xxx', api.middleware('refund'), async ctx => {
 - 签名(sign)会在调用API时自动处理, 无需手动传入
 - 随机字符串(nonce_str)会在调用API时自动处理, 无需手动传入
 
-### getPayParams: 获取微信JSSDK支付参数
+### getPayParams: 获取微信JSSDK支付参数(自动下单)
 ```javascript
 let result = await api.getPayParams({
   out_trade_no: '商户内部订单号',
   body: '商品简单描述',
   total_fee: 100,
   openid: '付款用户的openid'
+});
+```
+##### 相关默认值:
+- `trade_type` - JSAPI
+
+### getPayParamsByPrepay: 获取微信JSSDK支付参数(通过预支付会话标识)
+```javascript
+let result = await api.getPayParamsByPrepay({
+  prepay_id: '预支付会话标识'
 });
 ```
 ##### 相关默认值:
@@ -198,15 +207,12 @@ let result = await api.refundQuery({
 ### downloadBill: 下载对帐单
 ```javascript
 /**
- * 新增一个format参数(true/false), 用于自动转化帐单格式, 返回如下形式json:
- * {
- *   total_title: 统计数据的标题数组["总交易单数","总交易额","总退款金额", ...],
- *   total_data: 统计数据的数组["3", "88.00", "0.00", ...],
- *   list_title: 详细数据的标题数组["﻿交易时间","公众账号ID","商户号", ...],
- *   list_data: 详细数据的二维数据[["2017-12-26 19:20:39","wx12345", "12345", ...], ...]
- * }
+ * 新增一个format参数(默认: false), 用于自动转化帐单为json格式
+ * json.total_title: 统计数据的标题数组 - ["总交易单数","总交易额","总退款金额", ...],
+ * json.total_data: 统计数据的数组 - ["3", "88.00", "0.00", ...],
+ * json.list_title: 详细数据的标题数组 - ["﻿交易时间","公众账号ID","商户号", ...],
+ * json.list_data: 详细数据的二维数据 - [["2017-12-26 19:20:39","wx12345", "12345", ...], ...]
  */
-
 let result = await api.downloadBill({
   bill_date: '账单的日期'
 }, true);
