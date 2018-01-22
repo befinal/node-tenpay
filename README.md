@@ -2,12 +2,9 @@
 [![travis][travis]][travis-u] [![npm][npm]][npm-u] [![node][node]][node-u] [![issues][issues]][issues-u] [![commit][commit]][commit-u]
 
 - `中间件` - 支付结果通知, 退款结果通知
-- `获取支付参数` - 支持JSSDK, WeixinJSBridge, 小程序, APP
-- `微信支付api`
-- `扫码支付api`
-- `微信红包api`
-- `企业付款api`
-- `微信对帐单下载/格式化`
+- `获取前端支付参数` - 支持JSSDK, WeixinJSBridge, 小程序, APP
+- `微信支付` `扫码支付` `微信红包` `企业付款`
+- `微信对帐单下载` - 支持数据格式化
 
 ## 使用前必读
 #### 版本要求
@@ -55,6 +52,9 @@ const config = {
   spbill_create_ip: 'IP地址'
 };
 const api = new tenpay(config);
+
+// init调用: 用于多帐号省略new关键字, tenpay.init(config)返回一个新的实例对象
+await tenpay.init(config).some_api();
 ```
 
 #### config说明:
