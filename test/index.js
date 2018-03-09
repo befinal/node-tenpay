@@ -59,6 +59,14 @@ describe('订单相关', () => {
     assert.deepEqual(Object.keys(res), keys);
   });
 
+  it('生成扫码支付(模式一)URL: getNativeUrl', async () => {
+    let url = api.getNativeUrl({
+      product_id: '88888'
+    });
+    console.log('url', url);
+    assert.ok(url);
+  });
+
   it.skip('订单查询: orderQuery', async () => {
     let res = await api.orderQuery({
       out_trade_no: id

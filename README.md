@@ -3,7 +3,7 @@
 
 - `中间件` - 支付结果通知, 退款结果通知
 - `获取前端支付参数` - 支持JSSDK, WeixinJSBridge, 小程序, APP
-- `微信支付` `扫码支付` `微信红包` `企业付款`
+- `微信支付` `刷卡支付` `扫码支付` `微信红包` `企业付款`
 - `微信对帐单下载` - 支持数据格式化
 
 ## 使用前必读
@@ -77,7 +77,7 @@ await tenpay.init(config).some_api();
 - 如IP地址不需要按业务变化, 建议在初始化时传入统一的IP地址
 
 ## 中间件・微信通知(支付结果/退款结果)
-- middleware参数: `pay<支付结果通知, 默认>` `refund<退款结果通知>`
+- middleware参数: `pay<支付结果通知, 默认>` `refund<退款结果通知>` `nativePay<扫码支付模式一回调>`
 - 需自行添加bodyParser接收post data
 - reply()会自动封装SUCCESS消息, reply('some error_msg')会自动封装FAIL消息
 
