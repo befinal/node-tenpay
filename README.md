@@ -294,7 +294,7 @@ let result = await api.sendRedpack({
 - `mch_autono` - 当日10位唯一数字, 用于自动处理商户内部订单号逻辑
 - `total_num` - 1
 - `client_ip` - 默认为初始化时的spbill_create_ip参数值或`127.0.0.1`
-- `scene_id` - 空, 当红包金额大于`200元`时必传
+- `scene_id` - 空, 当红包金额大于`2元`时必传(微信文档说明为200元, 实际为2元)
 
 ### sendGroupRedpack: 发放裂变红包
 ```javascript
@@ -315,7 +315,7 @@ let result = await api.sendGroupRedpack({
 - `mch_autono` - 当日10位唯一数字, 用于自动处理商户内部订单号逻辑
 - `total_num` - 3, 分裂红包要求值为3~20之间
 - `amt_type` - ALL_RAND
-- `scene_id` - 空, 当红包金额大于`200元`时必传(文档中未说明)
+- `scene_id` - 空, 当红包金额大于`2元`时必传(文档中未说明)
 
 ### redpackQuery: 查询红包记录
 ```javascript
