@@ -3,7 +3,7 @@
 
 - `中间件` - 支付结果通知, 退款结果通知
 - `获取前端支付参数` - 支持JSSDK, WeixinJSBridge, 小程序, APP
-- `微信支付` `扫码支付` `微信红包` `企业付款`
+- `微信支付` `刷卡支付` `扫码支付` `微信红包` `企业付款`
 - `微信对帐单下载` - 支持数据格式化
 
 ## 使用前必读
@@ -77,7 +77,7 @@ await tenpay.init(config).some_api();
 - 如IP地址不需要按业务变化, 建议在初始化时传入统一的IP地址
 
 ## 中间件・微信通知(支付结果/退款结果)
-- middleware参数: `pay<支付结果通知, 默认>` `refund<退款结果通知>`
+- middleware参数: `pay<支付结果通知, 默认>` `refund<退款结果通知>` `nativePay<扫码支付模式一回调>`
 - 需自行添加bodyParser接收post data
 - reply()会自动封装SUCCESS消息, reply('some error_msg')会自动封装FAIL消息
 
@@ -294,7 +294,7 @@ let result = await api.sendRedpack({
 - `mch_autono` - 当日10位唯一数字, 用于自动处理商户内部订单号逻辑
 - `total_num` - 1
 - `client_ip` - 默认为初始化时的spbill_create_ip参数值或`127.0.0.1`
-- `scene_id` - 空, 当红包金额大于`2元`时必传(微信文档说明为200元, 实际为2元)
+- `scene_id` - 空, 当红包金额大于`2元`时必传(微信文档说明为200元, 实测为2元)
 
 ### sendGroupRedpack: 发放裂变红包
 ```javascript
