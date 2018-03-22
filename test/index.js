@@ -63,7 +63,6 @@ describe('订单相关', () => {
     let url = api.getNativeUrl({
       product_id: '88888'
     });
-    console.log('url', url);
     assert.ok(url);
   });
 
