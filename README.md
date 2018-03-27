@@ -4,7 +4,7 @@
 - `中间件` - 支付结果通知, 退款结果通知
 - `获取前端支付参数` - 支持JSSDK, WeixinJSBridge, 小程序, APP
 - `微信支付` `刷卡支付` `扫码支付` `微信红包` `企业付款`
-- `微信对帐单下载` - 支持数据格式化
+- `下载微信对帐单` `下载微信资金帐单` - 支持数据格式化
 
 ## 使用前必读
 #### 版本要求
@@ -30,7 +30,7 @@ nodejs >= 8.3.0
 #### 关于返回值
 > 未出错时正常返回为JSON格式数据
 
-- **特殊情况:** `downloadBill` 下载对帐单, 返回值为字符串文本
+- **特殊情况:** `downloadBill`和`downloadFundflow`下载的帐单返回值为字符串文本
 
 ## 安装
 ```Bash
@@ -66,6 +66,9 @@ await tenpay.init(config).some_api();
   - 若业务流程中使用了依赖证书的API则需要在初始化时传入此参数
 - `notify_url` - 支付结果通知回调地址(选填)
   - 可以在初始化的时候传入设为默认值, 不传则需在调用相关API时传入
+  - 调用相关API时传入新值则使用新值
+- `refund_url` - 退款结果通知回调地址(选填)
+  - 可以在初始化的时候传入设为默认值, 不传则使用微信商户后台配置
   - 调用相关API时传入新值则使用新值
 - `spbill_create_ip` - IP地址(选填)
   - 可以在初始化的时候传入设为默认值, 不传则默认值为`127.0.0.1`
@@ -225,6 +228,7 @@ let result = await api.refund({
 ```
 ##### 相关默认值:
 - `op_user_id` - 默认为商户号(此字段在小程序支付文档中出现)
+- `notify_url` - 默认为初始化时传入的refund_url, 无此参数则使用商户后台配置的退款通知地址
 
 ### refundQuery: 查询退款
 ```javascript
@@ -252,6 +256,23 @@ let result = await api.downloadBill({
 ```
 ##### 相关默认值:
 - `bill_type` - ALL
+- `format` - false
+
+### downloadFundflow: 下载资金帐单
+```javascript
+/**
+ * 新增一个format参数(默认: false), 用于自动转化帐单为json格式
+ * json.total_title: 统计数据的标题数组 - ["资金流水总笔数","收入笔数","收入金额", ...],
+ * json.total_data: 统计数据的数组 - ["20.0", "17.0", "0.35", ...],
+ * json.list_title: 详细数据的标题数组 - ["记账时间","微信支付业务单号","资金流水单号", ...],
+ * json.list_data: 详细数据的二维数据 - [["2018-02-01 04:21:23","12345", "12345", ...], ...]
+ */
+let result = await api.downloadFundflow({
+  bill_date: '账单的日期'
+}, true);
+```
+##### 相关默认值:
+- `account_type` - Basic
 - `format` - false
 
 ### transfers: 企业付款
