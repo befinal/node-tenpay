@@ -59,7 +59,7 @@ describe('订单相关', () => {
     assert.deepEqual(Object.keys(res), keys);
   });
 
-  it('生成扫码支付(模式一)URL: getNativeUrl', async () => {
+  it.skip('生成扫码支付(模式一)URL: getNativeUrl', async () => {
     let url = api.getNativeUrl({
       product_id: '88888'
     });
@@ -173,5 +173,29 @@ describe('红包相关', () => {
     });
     assert.ok(res.return_code === 'SUCCESS');
     assert.ok(res.result_code === 'SUCCESS');
+  });
+});
+
+describe('帐单相关', () => {
+  it.skip('下载对账单: downloadBill', async () => {
+    try {
+      let res = await api.downloadBill({
+        bill_date: '20171125'
+      }, true);
+      assert.ok(typeof res === 'object');
+    } catch (err) {
+      assert.ok(err.message === 'No Bill Exist')
+    }
+  });
+
+  it.skip('下载资金账单: downloadFundflow', async () => {
+    try {
+      let res = await api.downloadFundflow({
+        bill_date: '20180101'
+      }, true);
+      assert.ok(typeof res === 'object');
+    } catch (err) {
+      assert.ok(err.message === 'NO_BILL_EXIST')
+    }
   });
 });
