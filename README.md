@@ -79,6 +79,19 @@ await tenpay.init(config).some_api();
 - 如回调地址不需要按业务变化, 建议在初始化时传入统一的回调地址
 - 如IP地址不需要按业务变化, 建议在初始化时传入统一的IP地址
 
+## 沙盒模式(用于微信测试验收)
+```javascript
+  const tenpay = require('tenpay');
+  // 获取沙盒密钥
+  const {sandbox_signkey} = await tenpay.init({mchid, partnerKey}).getSignkey();
+  // 创建一个新的沙盒实例
+  const sandboxAPI = new tenpay({
+    ...config,
+    partnerKey: sandbox_signkey,
+    sandbox: true
+  });
+```
+
 ## 中间件・微信通知(支付结果/退款结果)
 - middleware参数: `pay<支付结果通知, 默认>` `refund<退款结果通知>` `nativePay<扫码支付模式一回调>`
 - 需自行添加bodyParser接收post data
