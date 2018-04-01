@@ -166,7 +166,14 @@ let result = await api.getAppParamsByPrepay({
 });
 ```
 
-### micropay: 扫码支付
+### getNativeUrl: 扫码支付(模式一)
+```javascript
+let result = await api.getNativeUrl({
+  product_id: '商品ID'
+});
+```
+
+### micropay: 刷卡支付
 ```javascript
 let result = await api.micropay({
   out_trade_no: '商户内部订单号',
