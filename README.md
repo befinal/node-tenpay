@@ -177,6 +177,19 @@ let result = await api.getNativeUrl({
 });
 ```
 
+### 扫码支付(模式二)
+```javascript
+// 使用统一下单API可直接获取code_url, 需自行生成二维码图片
+let {prepay_id, code_url} = await api.unifiedOrder({
+  out_trade_no: '商户内部订单号',
+  body: '商品简单描述',
+  total_fee: 100,
+  openid: '用户openid',
+  trade_type: 'NATIVE',
+  product_id: '商品id'
+});
+```
+
 ### micropay: 刷卡支付
 ```javascript
 let result = await api.micropay({
