@@ -201,7 +201,7 @@ describe('帐单相关', () => {
 });
 
 describe('沙盒测试', () => {
-  it('获取沙盒密钥: getSignkey', async () => {
+  it.skip('获取沙盒密钥: getSignkey', async () => {
     let {sandbox_signkey} = await api.getSignkey();
     assert.ok(sandbox_signkey);
   });
