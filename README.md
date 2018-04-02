@@ -1,10 +1,11 @@
 # 微信支付 for nodejs
 [![travis][travis]][travis-u] [![npm][npm]][npm-u] [![node][node]][node-u] [![issues][issues]][issues-u] [![commit][commit]][commit-u]
 
-- `中间件` - 支付结果通知, 退款结果通知
+- `通知类中间件` - 支付结果通知, 退款结果通知
 - `获取前端支付参数` - 支持JSSDK, WeixinJSBridge, 小程序, APP
-- `微信支付` `刷卡支付` `扫码支付` `微信红包` `企业付款`
-- `下载微信对帐单` `下载微信资金帐单` - 支持数据格式化
+- `多种支付模式` - 支持公众号支付, 刷卡支付, 扫码支付, 微信红包, 企业付款
+- `帐单下载与格式化` - 支持微信对帐单, 微信资金帐单
+- `微信支付仿真测试系统` - 支持沙盒模式, 用于完成支付验收流程
 
 ## 使用前必读
 #### 版本要求
@@ -51,10 +52,13 @@ const config = {
   notify_url: '支付回调网址',
   spbill_create_ip: 'IP地址'
 };
+// 方式一
 const api = new tenpay(config);
+//方式二
+const api = tenpay.init(config);
 
-// init调用: 用于多帐号省略new关键字, tenpay.init(config)返回一个新的实例对象
-await tenpay.init(config).some_api();
+// 沙盒模式(用于微信支付验收)
+const sandboxAPI = await tenpay.sandbox(config);
 ```
 
 #### config说明:
@@ -78,19 +82,6 @@ await tenpay.init(config).some_api();
 - 如业务流程中用到含证书请求的API, 则必须在初始时传入pfx参数
 - 如回调地址不需要按业务变化, 建议在初始化时传入统一的回调地址
 - 如IP地址不需要按业务变化, 建议在初始化时传入统一的IP地址
-
-## 沙盒模式(用于微信测试验收)
-```javascript
-  const tenpay = require('tenpay');
-  // 获取沙盒密钥
-  const {sandbox_signkey} = await tenpay.init({mchid, partnerKey}).getSignkey();
-  // 创建一个新的沙盒实例
-  const sandboxAPI = new tenpay({
-    ...config,
-    partnerKey: sandbox_signkey,
-    sandbox: true
-  });
-```
 
 ## 中间件・微信通知(支付结果/退款结果)
 - middleware参数: `pay<支付结果通知, 默认>` `refund<退款结果通知>` `nativePay<扫码支付模式一回调>`
