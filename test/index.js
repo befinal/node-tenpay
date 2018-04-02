@@ -5,7 +5,7 @@ const config = process.env.TESTER == 'travis' ? {
   partnerKey: process.env.partnerKey || '0',
   openid: process.env.openid || '0'
 } : require('../config');
-const api = new tenpay(config);
+const api = new tenpay(config, true);
 
 const assert = require('assert');
 describe('订单相关', () => {
@@ -201,8 +201,13 @@ describe('帐单相关', () => {
 });
 
 describe('沙盒测试', () => {
-  it.skip('获取沙盒密钥: getSignkey', async () => {
+  it('获取沙盒密钥: getSignkey', async () => {
     let {sandbox_signkey} = await api.getSignkey();
     assert.ok(sandbox_signkey);
   });
+
+  it.skip('创建沙盒实例', async() => {
+    let sandbox = await tenpay.sandbox(config);
+    assert.ok(sandbox);
+  })
 });
