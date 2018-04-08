@@ -4,6 +4,7 @@
 - `通知类中间件` - 支付结果通知, 退款结果通知
 - `获取前端支付参数` - 支持JSSDK, WeixinJSBridge, 小程序, APP
 - `多种支付模式` - 支持公众号支付, 刷卡支付, 扫码支付, 微信红包, 企业付款
+- `营销相关功能` - 微信代金券
 - `帐单下载与格式化` - 支持微信对帐单, 微信资金帐单
 - `微信支付仿真测试系统` - 支持沙盒模式, 用于完成支付验收流程
 
@@ -298,6 +299,31 @@ let result = await api.downloadFundflow({
 ##### 相关默认值:
 - `account_type` - Basic
 - `format` - false
+
+### sendCoupon: 发送代金券
+```javascript
+let result = await api.sendCoupon({
+  coupon_stock_id: '代金券批次id',
+  partner_trade_no: '商户单据号',
+  openid: '用户openid'
+});
+```
+
+### queryCouponStock: 查询代金券批次
+```javascript
+let result = await api.queryCouponStock({
+  coupon_stock_id: '代金券批次id'
+});
+```
+
+### queryCouponInfo: 查询代金券信息
+```javascript
+let result = await api.queryCouponInfo({
+  coupon_id: '代金券id',
+  openid: '用户openid',
+  stock_id: '批次号'
+});
+```
 
 ### transfers: 企业付款
 ```javascript
