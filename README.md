@@ -87,6 +87,7 @@ const sandboxAPI = await tenpay.sandbox(config);
 ## 中间件・微信通知(支付结果/退款结果)
 - middleware参数: `pay<支付结果通知, 默认>` `refund<退款结果通知>` `nativePay<扫码支付模式一回调>`
 - 需自行添加bodyParser接收post data
+- 中间件会对通知消息进行合法性验证, 并将消息解析为json格式放入req.weixin(Express)ctx.request.weixin(Koa)
 - reply()会自动封装SUCCESS消息, reply('some error_msg')会自动封装FAIL消息
 
 #### Express中使用
