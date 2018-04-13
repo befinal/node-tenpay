@@ -138,7 +138,7 @@ router.post('/xxx', api.middleware('refund'), async ctx => {
 let result = await api.getPayParams({
   out_trade_no: '商户内部订单号',
   body: '商品简单描述',
-  total_fee: 100,
+  total_fee: '订单金额(分)',
   openid: '付款用户的openid'
 });
 ```
@@ -158,7 +158,7 @@ let result = await api.getPayParamsByPrepay({
 let result = await api.getAppParams({
   out_trade_no: '商户内部订单号',
   body: '商品简单描述',
-  total_fee: 100
+  total_fee: '订单金额(分)'
 });
 ```
 ##### 相关默认值:
@@ -185,7 +185,7 @@ let result = await api.getNativeUrl({
 let {prepay_id, code_url} = await api.unifiedOrder({
   out_trade_no: '商户内部订单号',
   body: '商品简单描述',
-  total_fee: 100,
+  total_fee: '订单金额(分)',
   openid: '用户openid',
   trade_type: 'NATIVE',
   product_id: '商品id'
@@ -197,8 +197,8 @@ let {prepay_id, code_url} = await api.unifiedOrder({
 let result = await api.micropay({
   out_trade_no: '商户内部订单号',
   body: '商品简单描述',
-  total_fee: 100,
-  auth_code: '1234567890123'
+  total_fee: '订单金额(分)',
+  auth_code: '授权码'
 });
 ```
 
@@ -207,7 +207,7 @@ let result = await api.micropay({
 let result = await api.unifiedOrder({
   out_trade_no: '商户内部订单号',
   body: '商品简单描述',
-  total_fee: 100,
+  total_fee: '订单金额(分)',
   openid: '用户openid'
 });
 ```
@@ -248,8 +248,8 @@ let result = await api.refund({
   // transaction_id: '微信的订单号',
   out_trade_no: '商户内部订单号',
   out_refund_no: '商户内部退款单号',
-  total_fee: 100,
-  refund_fee: 100
+  total_fee: '订单金额(分)',
+  refund_fee: '退款金额(分)'
 });
 ```
 ##### 相关默认值:
@@ -277,7 +277,7 @@ let result = await api.refundQuery({
  * json.list_data: 详细数据的二维数据 - [["2017-12-26 19:20:39","wx12345", "12345", ...], ...]
  */
 let result = await api.downloadBill({
-  bill_date: '账单的日期'
+  bill_date: '账单日期'
 }, true);
 ```
 ##### 相关默认值:
@@ -294,7 +294,7 @@ let result = await api.downloadBill({
  * json.list_data: 详细数据的二维数据 - [["2018-02-01 04:21:23","12345", "12345", ...], ...]
  */
 let result = await api.downloadFundflow({
-  bill_date: '账单的日期'
+  bill_date: '账单日期'
 }, true);
 ```
 ##### 相关默认值:
@@ -332,7 +332,7 @@ let result = await api.transfers({
   partner_trade_no: '商户内部付款订单号',
   openid: '用户openid',
   re_user_name: '用户真实姓名',
-  amount: 100,
+  amount: '付款金额(分)',
   desc: '企业付款描述信息'
 });
 ```
@@ -352,10 +352,10 @@ let result = await api.transfersQuery({
 let result = await api.sendRedpack({
   // mch_billno, mch_autono 二选一
   // mch_billno: '商户内部付款订单号',
-  mch_autono: '10位当日唯一数字',
+  mch_autono: '10位当日唯一数字, 用于自动生成mch_billno',
   send_name: '商户名称',
   re_openid: '用户openid',
-  total_amount: <付款金额(分)>,
+  total_amount: '红包金额(分)',
   wishing: '红包祝福语',
   act_name: '活动名称',
   remark: '备注信息'
@@ -373,10 +373,10 @@ let result = await api.sendRedpack({
 let result = await api.sendGroupRedpack({
   // mch_billno, mch_autono 二选一
   // mch_billno: '商户内部付款订单号',
-  mch_autono: '10位当日唯一数字',
+  mch_autono: '10位当日唯一数字, 用于自动生成mch_billno',
   send_name: '商户名称',
   re_openid: '种子用户openid',
-  total_amount: <付款金额(分)>,
+  total_amount: '红包金额(分)',
   wishing: '红包祝福语',
   act_name: '活动名称',
   remark: '备注信息'
