@@ -84,7 +84,7 @@ const sandboxAPI = await tenpay.sandbox(config);
 - 如回调地址不需要按业务变化, 建议在初始化时传入统一的回调地址
 - 如IP地址不需要按业务变化, 建议在初始化时传入统一的IP地址
 
-## 中间件・微信通知(支付结果/退款结果)
+## 中间件・微信消息通知
 - middleware参数: `pay<支付结果通知, 默认>` `refund<退款结果通知>` `nativePay<扫码支付模式一回调>`
 - 需自行添加bodyParser接收post data
 - 中间件会对通知消息进行合法性验证, 并将消息解析为json格式放入req.weixin(Express)或ctx.request.weixin(Koa)
@@ -99,10 +99,8 @@ router.post('/xxx', api.middlewareForExpress('pay'), (req, res) => {
 
   // 业务逻辑...
 
-  // 回复成功消息
-  res.reply();
-  // 回复错误消息
-  // res.reply('错误信息');
+  // 回复消息(参数为空回复成功, 传值则为错误消息)
+  res.reply('错误消息' || '');
 });
 ```
 
@@ -120,10 +118,8 @@ router.post('/xxx', api.middleware('refund'), async ctx => {
 
   // 业务逻辑...
 
-  // 回复成功消息
-  ctx.reply();
-  // 回复错误消息
-  // ctx.reply('错误信息');
+  // 回复消息(参数为空回复成功, 传值则为错误消息)
+  ctx.reply('错误消息' || '');
 });
 ```
 
@@ -301,7 +297,7 @@ let result = await api.downloadFundflow({
 - `account_type` - Basic
 - `format` - false
 
-### sendCoupon: 发送代金券
+### sendCoupon: 发放代金券
 ```javascript
 let result = await api.sendCoupon({
   coupon_stock_id: '代金券批次id',
