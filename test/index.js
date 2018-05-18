@@ -113,13 +113,14 @@ describe('退款相关', () => {
 });
 
 describe('企业付款相关', () => {
-  let id = 'T1514732081550';
+  let id = 'T1514732081554';
 
   it.skip('申请付款: transfers', async () => {
     let res = await api.transfers({
       partner_trade_no: id,
       openid: config.openid,
-      amount: 100,
+      re_user_name: config.user_name,
+      amount: 30,
       desc: '企业付款测试'
     });
     assert.ok(res.return_code === 'SUCCESS');
