@@ -334,7 +334,7 @@ let result = await api.transfers({
 });
 ```
 ##### 相关默认值:
-- `check_name` - OPTION_CHECK
+- `check_name` - FORCE_CHECK
 - `spbill_create_ip` - 默认为初始化时传入的值或`127.0.0.1`
 
 ### transfersQuery: 查询企业付款
