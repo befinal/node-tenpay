@@ -344,6 +344,25 @@ let result = await api.transfersQuery({
 });
 ```
 
+### payBank: 企业付款到银行卡
+```javascript
+let result = await api.payBank({
+  partner_trade_no: '商户内部付款订单号',
+  bank_code: '收款方开户行',
+  enc_bank_no: '收款方银行卡号',
+  enc_true_name: '收款方用户名',
+  amount: '付款金额(分)',
+  desc: '企业付款到银行卡描述信息'
+});
+```
+
+### queryBank: 查询企业付款到银行卡
+```javascript
+let result = await api.queryBank({
+  partner_trade_no: '商户内部付款订单号'
+});
+```
+
 ### sendRedpack: 发放普通红包
 ```javascript
 let result = await api.sendRedpack({
