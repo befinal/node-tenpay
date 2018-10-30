@@ -2,8 +2,8 @@
 [![travis][travis]][travis-u] [![npm][npm]][npm-u] [![node][node]][node-u] [![issues][issues]][issues-u] [![commit][commit]][commit-u]
 
 - `通知类中间件` - 支付结果通知, 退款结果通知
-- `获取前端支付参数` - 支持JSSDK, WeixinJSBridge, 小程序, APP
-- `多种支付模式` - 支持公众号支付, 刷卡支付, 扫码支付, 微信红包, 企业付款
+- `获取前端支付参数` - 支持JSSDK, WeixinJSBridge, 小程序, APP, H5
+- `多种支付模式` - 公众号支付, 刷卡支付, 扫码支付, 微信红包, 企业付款(付款至零钱/银行卡)
 - `营销相关功能` - 微信代金券
 - `帐单下载与格式化` - 支持微信对帐单, 微信资金帐单
 - `支持服务商模式` - 所有api均可自行传入sub_appid, sub_mch_id
@@ -56,8 +56,11 @@ const config = {
 };
 // 方式一
 const api = new tenpay(config);
-//方式二
+// 方式二
 const api = tenpay.init(config);
+
+// 调试模式(传入第二个参数为true, 可在控制台输出数据)
+const api = new tenpay(config, true);
 
 // 沙盒模式(用于微信支付验收)
 const sandboxAPI = await tenpay.sandbox(config);
