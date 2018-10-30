@@ -134,6 +134,27 @@ describe('企业付款相关', () => {
     assert.ok(res.return_code === 'SUCCESS');
     assert.ok(res.result_code === 'SUCCESS');
   });
+
+  it.skip('申请付款到银行卡: payBank', async () => {
+    let res = await api.payBank({
+      partner_trade_no: id,
+      enc_bank_no: config.enc_bank_no,
+      enc_true_name: config.enc_true_name,
+      bank_code: config.bank_code,
+      amount: 30,
+      desc: '企业付款到银行卡测试'
+    });
+    assert.ok(res.return_code === 'SUCCESS');
+    assert.ok(res.result_code === 'SUCCESS');
+  });
+
+  it.skip('付款到银行卡查询: queryBank', async () => {
+    let res = await api.queryBank({
+      partner_trade_no: id
+    });
+    assert.ok(res.return_code === 'SUCCESS');
+    assert.ok(res.result_code === 'SUCCESS');
+  });
 });
 
 describe('红包相关', () => {
