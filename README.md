@@ -417,6 +417,11 @@ api.redpackQuery({
 ##### 相关默认值:
 - `bill_type` - MCHT
 
+## 捐赠
+欢迎同学们请作者喝一杯~
+
+![捐赠](https://raw.githubusercontent.com/befinal/about/master/enjoy.png)
+
 [travis]: https://img.shields.io/travis/befinal/node-tenpay.svg
 [travis-u]: https://travis-ci.org/befinal/node-tenpay
 
