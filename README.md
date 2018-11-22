@@ -1,6 +1,7 @@
 # 微信支付 for nodejs
 [![travis][travis]][travis-u] [![npm][npm]][npm-u] [![node][node]][node-u] [![issues][issues]][issues-u] [![commit][commit]][commit-u]
 
+## 功能概述
 - `通知类中间件` - 支付结果通知, 退款结果通知
 - `获取前端支付参数` - 支持JSSDK, WeixinJSBridge, 小程序, APP, H5
 - `多种支付模式` - 公众号支付, 刷卡支付, 扫码支付, 微信红包, 企业付款(付款至零钱/银行卡)
