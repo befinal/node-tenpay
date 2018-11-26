@@ -1,6 +1,6 @@
 {
   "name": "tenpay",
-  "version": "2.1.10",
+  "version": "2.1.11",
   "description": "微信支付 for nodejs",
   "main": "./lib",
   "scripts": {
