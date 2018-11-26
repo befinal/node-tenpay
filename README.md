@@ -113,7 +113,6 @@ router.post('/xxx', api.middlewareForExpress('pay'), (req, res) => {
 });
 
 // 扫码支付模式一回调
-
 router.get('/xxx', api.middlewareForExpress('nativePay'), (req, res) => {
   let info = req.weixin;
 
