@@ -102,6 +102,7 @@ const sandboxAPI = await tenpay.sandbox(config);
 ```javascript
 app.use(bodyParser.text({type: '*/xml'}));
 
+// 支付结果通知/退款结果通知
 router.post('/xxx', api.middlewareForExpress('pay'), (req, res) => {
   let info = req.weixin;
 
@@ -109,6 +110,15 @@ router.post('/xxx', api.middlewareForExpress('pay'), (req, res) => {
 
   // 回复消息(参数为空回复成功, 传值则为错误消息)
   res.reply('错误消息' || '');
+});
+
+// 扫码支付模式一回调
+
+router.get('/xxx', api.middlewareForExpress('nativePay'), (req, res) => {
+  let info = req.weixin;
+
+  // 业务逻辑和统一下单获取prepay_id...
+  res.replyNative(prepay_id);
 });
 ```
 
@@ -128,6 +138,9 @@ router.post('/xxx', api.middleware('refund'), async ctx => {
 
   // 回复消息(参数为空回复成功, 传值则为错误消息)
   ctx.reply('错误消息' || '');
+
+  // 扫码支付模式一模式
+  ctx.replyNative(prepay_id);
 });
 ```
 
