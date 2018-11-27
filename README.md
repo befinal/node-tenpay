@@ -117,7 +117,9 @@ router.get('/xxx', api.middlewareForExpress('nativePay'), (req, res) => {
   let info = req.weixin;
 
   // 业务逻辑和统一下单获取prepay_id...
-  res.replyNative(prepay_id);
+
+  // 响应成功或失败(第二个可选参数为输出错误信息)
+  res.replyNative(prepay_id, err_msg);
 });
 ```
 
