@@ -113,7 +113,7 @@ router.post('/xxx', api.middlewareForExpress('pay'), (req, res) => {
 });
 
 // 扫码支付模式一回调
-router.get('/xxx', api.middlewareForExpress('nativePay'), (req, res) => {
+router.post('/xxx', api.middlewareForExpress('nativePay'), (req, res) => {
   let info = req.weixin;
 
   // 业务逻辑和统一下单获取prepay_id...
