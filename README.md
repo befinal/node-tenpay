@@ -3,11 +3,12 @@
 
 ## 功能概述
 - `通知类中间件` - 支付结果通知, 退款结果通知
-- `获取前端支付参数` - 支持JSSDK, WeixinJSBridge, 小程序, APP, H5
-- `多种支付模式` - 公众号支付, 刷卡支付, 扫码支付, 微信红包, 企业付款(付款至零钱/银行卡)
-- `营销相关功能` - 微信代金券
-- `帐单下载与格式化` - 支持微信对帐单, 微信资金帐单
-- `支持服务商模式` - 所有api均可自行传入sub_appid, sub_mch_id
+- `前端支付支持` - 支持JSAPI, WeixinJSBridge, 小程序, APP, H5
+- `支付模式支持` - 付款码/公众号/小程序/APP/H5/扫码支付
+- `支付工具支持` - 微信红包, 企业付款(支持付款到零钱和银行卡)
+- `营销功能支持` - 微信代金券
+- `对帐账单支持` - 支持微信对帐单, 微信资金帐单
+- `服务商模式支持` - 所有api均可自行传入sub_appid, sub_mch_id
 - `微信支付仿真测试系统` - 支持沙盒模式, 用于完成支付验收流程
 
 ## 交流群
@@ -434,11 +435,6 @@ api.redpackQuery({
 ```
 ##### 相关默认值:
 - `bill_type` - MCHT
-
-## 捐赠
-欢迎同学们请作者喝一杯~
-
-![捐赠](https://raw.githubusercontent.com/befinal/about/master/enjoy.png)
 
 [travis]: https://img.shields.io/travis/befinal/node-tenpay.svg
 [travis-u]: https://travis-ci.org/befinal/node-tenpay
