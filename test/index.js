@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const tenpay = require('../lib');
 const config = process.env.TESTER == 'travis' ? {
   appid: process.env.appid || '0',
