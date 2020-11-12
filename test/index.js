@@ -10,7 +10,7 @@ const config =
         openid: process.env.openid || "0",
       }
     : require("../config");
-const api = new tenpay(config, true, true);
+const api = new tenpay(config, false, true);
 
 const assert = require("assert");
 describe("订单相关", () => {

@@ -113,7 +113,11 @@ class Payment {
   }
 
   static async sandbox(config: Record<string, string>, debug: boolean) {
-    let { sandbox_signkey } = await Payment.init(config).getSignkey();
+    let { sandbox_signkey } = await Payment.init(
+      config,
+      true,
+      debug
+    ).getSignkey();
     return new Payment(
       {
         ...config,
