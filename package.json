@@ -5,7 +5,8 @@
   "main": "./lib",
   "scripts": {
     "test": "mocha",
-    "travis": "TESTER=travis mocha"
+    "travis": "TESTER=travis mocha",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -29,10 +30,13 @@
   },
   "homepage": "https://github.com/befinal/node-tenpay#readme",
   "dependencies": {
-    "urllib": "^2.33.0",
-    "xml2js": "^0.4.19"
+    "@types/xml2js": "^0.4.5",
+    "urllib": "^2.33.0"
   },
   "devDependencies": {
     "mocha": "^4.1.0"
-  }
+  },
+  "files": [
+    "lib/"
+  ]
 }

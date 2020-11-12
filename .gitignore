@@ -1,3 +1,6 @@
 node_modules
 package-lock.json
 config
+
+.DS_Store
+lib
